@@ -51,7 +51,7 @@ def gerar_resposta(pergunta, _contexto=None):
             f"Use apenas as informações a seguir:\n\n{contexto}\n\nPergunta: {pergunta}"
         )
 
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        model = genai.GenerativeModel(model_name="models/gemini-2.5-flash")
         resposta = model.generate_content(prompt)
 
         texto = resposta.text.strip().lower()
