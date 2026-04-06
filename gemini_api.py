@@ -2,13 +2,13 @@ import os
 import json
 import faiss
 import numpy as np
-import google.generativeai as genai
 import markdown
+from google import genai
 from functools import lru_cache
 from dotenv import load_dotenv
 
 load_dotenv()
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 INDEX_PATH = "index/faiss.index"
 VETORES_JSON = "index/vetores.json"
@@ -26,12 +26,11 @@ resposta_cache = {}
 
 @lru_cache(maxsize=1000)
 def gerar_embedding(texto):
-    response = genai.embed_content(
+    response = client.models.embed_content(
         model="models/embedding-001",
-        content=texto,
-        task_type="retrieval_query"
+        contents=texto
     )
-    return tuple(response["embedding"])
+    return tuple(response.embeddings[0].values)
 
 def buscar_chunks_relevantes(pergunta, top_k=5):
     emb_pergunta = np.array([gerar_embedding(pergunta)], dtype="float32")
@@ -51,8 +50,10 @@ def gerar_resposta(pergunta, _contexto=None):
             f"Use apenas as informações a seguir:\n\n{contexto}\n\nPergunta: {pergunta}"
         )
 
-        model = genai.GenerativeModel(model_name="models/gemini-2.5-flash")
-        resposta = model.generate_content(prompt)
+        resposta = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt
+        )
 
         texto = resposta.text.strip().lower()
 
