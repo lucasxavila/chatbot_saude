@@ -25,31 +25,35 @@ Link demonstrando o funcionamento do Chatbot: <a href="https://youtu.be/z3RBn8an
 
 ## Estrutura do Projeto
 
-`chatbot_saude/`  
-`app.py:` Roteamento Flask e interface principal do chatbot  
-`gemini_api.py:` Conexão com a API da Gemini  
-`indexador_gemini.py:` Indexação de informações para contexto das respostas  
-`processamento.py:` Processamento de perguntas e formatação de respostas  
-`templates/`  
-`index.html:` Interface HTML principal  
-`static/`  
-`style.css:` Estilo HTML  
-`script.js:` Responsável por interatividade, como enviar perguntas para o backend  
-`requirements.txt:` Dependências do projeto  
-`Procfile:` Arquivo para deploy no Railway  
-`README.md`
+```text
+chatbot_saude/
+├── app.py                # Roteamento Flask e interface principal do chatbot
+├── gemini_api.py         # Conexão com a nova API do Google Gemini
+├── indexador_gemini.py   # Indexação de informações para contexto das respostas
+├── processamento.py      # Processamento de perguntas e formatação de respostas
+├── requirements.txt      # Dependências do projeto
+├── Procfile              # Arquivo para deploy no Railway
+├── README.md
+├── templates/
+│   └── index.html        # Interface HTML principal
+└── static/
+    ├── style.css         # Estilos da página
+    └── script.js         # Interatividade do frontend
+```
 
 ## Como Executar
 
 1. Clone o repositório:
    ```bash
    git clone https://github.com/lucasxavila/chatbot-saude.git
+   ```
 2. Navegue até o diretório do projeto:
    ```bash
    cd chatbot-saude
+   ```
 3. Crie um ambiente virtual e ative-o:
    ```bash
-   python -m venv venv
+   python -m venv .venv
    ```
    ```bash
    .venv\Scripts\activate
@@ -57,13 +61,20 @@ Link demonstrando o funcionamento do Chatbot: <a href="https://youtu.be/z3RBn8an
 4. Instale as dependências:
    ```bash
    pip install -r requirements.txt
+   ```
 5. Configure sua chave da API Gemini em um arquivo ```.env```, com a variável:
    ```bash
    GEMINI_API_KEY=sua-chave
+   ```
 7. Execute a aplicação:
    ```bash
    python app.py
-
+   ```
+8. Acesse no navegador:
+   ```bash
+   http://127.0.0.1:5000
+   ```
+   
 ## Deploy
 O projeto está configurado para deploy no Railway usando Procfile e runtime.txt.
 
