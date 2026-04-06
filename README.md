@@ -50,7 +50,10 @@ Link demonstrando o funcionamento do Chatbot: <a href="https://youtu.be/z3RBn8an
 3. Crie um ambiente virtual e ative-o:
    ```bash
    python -m venv venv
-   source venv\Scripts\activate
+   ```
+   ```bash
+   .venv\Scripts\activate
+   ```
 4. Instale as dependências:
    ```bash
    pip install -r requirements.txt
